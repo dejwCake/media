@@ -56,17 +56,13 @@ class CreateMedia extends AbstractMigration
         ]);
         $table->addForeignKey('created_by', 'users', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE'])
             ->addIndex(['created_by',]);
-        $table->addColumn('created', 'datetime', [
-            'default' => null,
-            'null' => false,
-        ]);
+        $table->addColumn('created', 'datetime');
         $table->addColumn('modified', 'datetime', [
             'default' => null,
-            'null' => false,
         ]);
         $table->addColumn('deleted', 'datetime', [
             'default' => null,
-            'null' => false,
+            'null' => true,
         ]);
         $table->create();
     }
