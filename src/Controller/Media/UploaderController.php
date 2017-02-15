@@ -1,10 +1,11 @@
 <?php
 namespace DejwCake\Media\Controller\Media;
 
+use DejwCake\Media\Helpers\UploadedFile;
 use DejwCake\Media\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Log\Log;
-use Matriphe\Imageupload\UploadService;
+use DejwCake\Media\Service\UploadService;
 
 /**
  * Pages Controller
@@ -40,16 +41,13 @@ class UploaderController extends AppController
     public function upload() {
         $this->RequestHandler->renderAs($this, 'json');
         if ($this->request->data('fileinput')) {
-            debug($this->request->data('fileinput'));
             $file = $this->request->data('fileinput');
-            $temp = explode('.', $file['name']);
-            $ext  = array_pop($temp);
-            $name = implode('.', $temp);
-            $newFileName = $name.'-'.time();
-            $fileInfo = UploadService::upload($this->request->data('fileinput'), $newFileName);
-            $response = $fileinfo;
+            $fileInfo = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['size'], $file['error']);
+            $uploaderService = new UploadService();
+            $response = $uploaderService->upload($fileInfo);
+        } else {
+            $response = '';
         }
-        $response = '';
         $this->set(compact('response'));
         $this->set('_serialize', ['response']);
     }

@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label class="col-sm-2 control-label" for="title"><?= $collection["title"] ?></label>
-    <div class="col-sm-10" id="<?= $collection["name"] ?>" data-upload-url="<?= $this->Url->build(['controller' => 'Uploader', 'action' => 'upload', 'plugin' => 'DejwCake/Media', 'prefix' => 'media']) ?>">
+    <label class="control-label" for="title"><?= $collection["title"] ?></label>
+    <div id="<?= $collection["name"] ?>" data-upload-url="<?= $this->Url->build(['controller' => 'Uploader', 'action' => 'upload', 'plugin' => 'DejwCake/Media', 'prefix' => 'media']) ?>">
         <?php //$collectionUrl = $object->getFirstMediaUrl($collection["name"]) ?>
         <?php if((empty($collectionUrl)) && (is_null($this->request->data('medium.'.$collection["name"])))): ?>
             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -66,7 +66,6 @@
                     // This function is called when a file is added to the queue;
                     // either via the browse button, or via drag/drop:
                     add: function (e, data) {
-                        console.log(context.attr('data-upload-url'));
                         context.children(".fileinput").addClass("loading");
 
                         // Automatically upload the file once it is added to the queue
@@ -74,9 +73,10 @@
                     },
 
                     done: function(e, data){
-                        dataResponse = data;
+                        dataResponse = data.result.response;
                         setTimeout(function(){
-                            originalUrl = dataResponse.result.original_filepath;
+                            originalUrl = dataResponse.original_filepath;
+                            console.log(dataResponse);
                             context.children(".fileinput").removeClass("loading");
                             $(".<?= $collection["name"] ?>Input").val(originalUrl);
                             context.find('#hasDeletedInput_<?= $collection["name"] ?>').val(0);
