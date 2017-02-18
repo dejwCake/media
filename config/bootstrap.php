@@ -23,7 +23,7 @@ Configure::write('Media', [
      *
      * Default: public/uploads/images
      */
-    'path' => WWW_ROOT . '/files/uploads',
+    'path' => WWW_ROOT . 'files'. DS .'uploads',
 
     /*
       * Use original name. If set to false, will use hashed name.

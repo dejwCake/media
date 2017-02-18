@@ -33,7 +33,7 @@ class UploadService
 
     private function checkPathIsOk($path, $dir = null)
     {
-        $path = rtrim($path, '/') . ($dir ? '/' . trim($dir, '/') : '');
+        $path = rtrim($path, DS) . ($dir ? DS . trim($dir, DS) : '');
 
         $folder = new Folder();
         if ($folder->create($path, 0777)) {
@@ -52,8 +52,8 @@ class UploadService
 
         if ($isPathOk) {
             if ($filesource) {
-                $this->results['path'] = rtrim($this->uploadpath, '/') . ($dir ? '/' . trim($dir, '/') : '');
-                $this->results['dir'] = str_replace(WWW_ROOT . '/', '', $this->results['path']);
+                $this->results['path'] = rtrim($this->uploadpath, DS) . ($dir ? DS . trim($dir, DS) : '');
+                $this->results['dir'] = str_replace(WWW_ROOT, '', $this->results['path']);
                 $this->results['original_filename'] = $filesource->getClientOriginalName();
                 $this->results['original_filepath'] = $filesource->getRealPath();
                 $this->results['original_extension'] = $filesource->getClientOriginalExtension();
@@ -87,8 +87,8 @@ class UploadService
 
                 $uploaded = $filesource->move($this->results['path'], $this->results['filename']);
                 if ($uploaded) {
-                    $this->results['original_filepath'] = rtrim($this->results['path']) . '/' . $this->results['filename'];
-                    $this->results['original_filedir'] = str_replace(WWW_ROOT . '/', '', $this->results['original_filepath']);
+                    $this->results['original_filepath'] = rtrim($this->results['path']) . DS . $this->results['filename'];
+                    $this->results['original_filedir'] = str_replace(WWW_ROOT, '', $this->results['original_filepath']);
                     $this->results['basename'] = pathinfo($this->results['original_filepath'], PATHINFO_FILENAME);
 
                     list($width, $height) = getimagesize($this->results['original_filepath']);
@@ -125,12 +125,10 @@ class UploadService
 
         $suffix = trim($suffix);
 
-        $path = $this->results['path'] . ($this->suffix == false ? '/' . trim($suffix, '/') : '');
-        $name = $this->results['basename'] . ($this->suffix == true ? '_' . trim($suffix, '/') : '') . '.' . $this->results['original_extension'];
+        $path = $this->results['path'] . ($this->suffix == false ? DS . trim($suffix, DS) : '');
+        $name = $this->results['basename'] . ($this->suffix == true ? '_' . trim($suffix, DS) : '') . '.' . $this->results['original_extension'];
 
-        $pathname = $path . '/' . $name;
-
-        //print_r($width.' '.$height.' '.$crop);
+        $pathname = $path . DS . $name;
 
         try {
             $isPathOk = $this->checkPathIsOk($this->results['path'], ($this->suffix == false ? $suffix : ''));
@@ -145,10 +143,10 @@ class UploadService
 
                 $this->results['dimensions'][$suffix] = [
                     'path' => $path,
-                    'dir' => str_replace(WWW_ROOT . '/', '', $path),
+                    'dir' => str_replace(WWW_ROOT, '', $path),
                     'filename' => $name,
                     'filepath' => $pathname,
-                    'filedir' => str_replace(WWW_ROOT . '/', '', $pathname),
+                    'filedir' => str_replace(WWW_ROOT, '', $pathname),
                     'width' => $nwidth,
                     'height' => $nheight,
                     'filesize' => $filesize,
