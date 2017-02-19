@@ -12,24 +12,16 @@ class CreateMedia extends AbstractMigration
      */
     public function change()
     {
-        $table->string('disk');
-        $table->text('manipulations');
-        $table->text('custom_properties');
-        $table->unsignedInteger('order_column')->nullable();
-        $table->timestamp('created_at')->nullable();
-        $table->timestamp('updated_at')->nullable();
-
         $table = $this->table('media');
         $table->addColumn('entity_id', 'integer', [
             'null' => true,
         ]);
         $table->addIndex(['entity_id',]);
-        $table->addColumn('entity_class', 'integer', [
+        $table->addColumn('entity_class', 'string', [
             'null' => true,
         ]);
         $table->addIndex(['entity_class',]);
         $table->addIndex(['entity_id', 'entity_class'], [
-            'name' => 'I18N_ENTITY_UNIQUE',
             'unique' => true,
         ]);
         $table->addColumn('title', 'string', [
@@ -44,18 +36,19 @@ class CreateMedia extends AbstractMigration
         $table->addColumn('size', 'integer', [
 //            'limit' => 255,
         ]);
+        $table->addColumn('mime_type', 'string', [
+            'limit' => 255,
+        ]);
         $table->addColumn('manipulations', 'text', [
-//            'limit' => 255,
-        ]);
-        $table->addColumn('properties', 'text', [
-//            'limit' => 255,
-        ]);
-        $table->addColumn('sort', 'integer');
-        $table->addColumn('created_by', 'integer', [
             'null' => true,
         ]);
-        $table->addForeignKey('created_by', 'users', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE'])
-            ->addIndex(['created_by',]);
+        $table->addColumn('properties', 'text', [
+            'null' => true,
+        ]);
+        $table->addColumn('disk', 'string', [
+            'limit' => 255,
+        ]);
+        $table->addColumn('sort', 'integer');
         $table->addColumn('created', 'datetime');
         $table->addColumn('modified', 'datetime', [
             'default' => null,
@@ -63,6 +56,58 @@ class CreateMedia extends AbstractMigration
         $table->addColumn('deleted', 'datetime', [
             'default' => null,
             'null' => true,
+        ]);
+        $table->create();
+
+        $table = $this->table('media_i18n');
+        $table->addColumn('locale', 'string', [
+            'default' => null,
+            'limit' => 6,
+            'null' => false,
+        ]);
+        $table->addColumn('model', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
+        ]);
+        $table->addColumn('foreign_key', 'integer', [
+            'default' => null,
+            'limit' => 11,
+            'null' => false,
+        ]);
+        $table->addColumn('field', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
+        ]);
+        $table->addColumn('content', 'text', [
+            'default' => null,
+            'null' => false,
+        ]);
+
+        $table->addIndex(['locale',], [
+            'name' => 'locale',
+            'unique' => false,
+        ]);
+        $table->addIndex(['model',], [
+            'name' => 'model',
+            'unique' => false,
+        ]);
+        $table->addIndex(['foreign_key',], [
+            'name' => 'row_id',
+            'unique' => false,
+        ]);
+        $table->addIndex(['field',], [
+            'name' => 'field',
+            'unique' => false,
+        ]);
+        $table->addIndex(['locale', 'model', 'foreign_key', 'field',], [
+            'name' => 'I18N_LOCALE_FIELD',
+            'unique' => true,
+        ]);
+        $table->addIndex(['model', 'foreign_key', 'field',], [
+            'name' => 'I18N_FIELD',
+            'unique' => false,
         ]);
         $table->create();
     }

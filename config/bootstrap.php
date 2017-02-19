@@ -37,7 +37,15 @@ Configure::write('Media', [
       *     - custom: user must provide new name, if not will use original filename
       */
     'newfilename' => 'dashTime',
-
+    'square50' => array(50, 50, true),
+//        'square100' => array(100, 100, true),
+//        'square200' => array(200, 200, true),
+//        'square400' => array(400, 400, true),
+//
+//        'size50' => array(50, 50, false),
+//        'size100' => array(100, 100, false),
+//        'size200' => array(200, 200, false),
+//        'size400' => array(400, 400, false),
     /*
      * Sizes, used to crop and create multiple size.
      *
@@ -45,15 +53,7 @@ Configure::write('Media', [
      */
     'dimensions' => array(
 
-        'square50' => array(50, 50, true),
-        'square100' => array(100, 100, true),
-        'square200' => array(200, 200, true),
-        'square400' => array(400, 400, true),
-
-        'size50' => array(50, 50, false),
-        'size100' => array(100, 100, false),
-        'size200' => array(200, 200, false),
-        'size400' => array(400, 400, false),
+//
     ),
 
     /*
@@ -74,4 +74,26 @@ Configure::write('Media', [
      *     - FALSE (default): ignore exif data
      */
     'exif' => env('IMAGEUPLOAD_EXIF', false),
+
+    //For media
+    'table' => 'DejwCake/Media.Media',
+
+    /*
+     * The filesystems on which to store added files and derived images. Choose one or more
+     * of the filesystems you configured in app/config/filesystems.php
+     */
+    'defaultFilesystem' => 'media',
+
+    /*
+     * The maximum file size of an item in bytes. Adding a file
+     * that is larger will result in an exception.
+     */
+    'maxFileSize' => 1024 * 1024 * 100,
+
+    'disks' => [
+        'media' => [
+            'driver' => 'local',
+            'root'   => WWW_ROOT . 'files'. DS .'media',
+        ],
+    ],
 ]);

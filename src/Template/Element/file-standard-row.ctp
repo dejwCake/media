@@ -1,3 +1,4 @@
+<?php debug($object->getMedia($collection["name"]));?>
 <div class="form-group">
     <label class="control-label" for="title"><?= $collection["title"] ?></label>
     <?php
@@ -17,13 +18,11 @@
             </span>
             <!-- The file input field used as target for the file upload widget -->
             <input id="fileupload" type="file" name="fileinput[]" multiple/>
-            <input type="hidden" name="medium[<?= $collection["name"] ?>]" data-provides="mediumInput" <?php if(!is_null($medium)) { echo "value=".$medium.""; } ?>>
-            <input type="hidden" name="hasDeleted[<?= $collection["name"] ?>]" data-provides="hasDeletedInput" value="0" />
+            <input type="hidden" name="medium[<?= $collection["name"] ?>][file]" data-provides="mediumInput" <?php if(!is_null($medium)) { echo "value=".$medium.""; } ?>>
+            <input type="hidden" name="medium[<?= $collection["name"] ?>][hasDeleted]" data-provides="hasDeletedInput" value="0" />
         </span>
     </div>
 </div>
-
-<?php echo $this->element('DejwCake/Media.Template/file-template')?>
 
 <?php $this->append('css'); ?>
     <?php echo $this->Html->css('DejwCake/AdminLTE./plugins/jQueryFileUpload/jquery.fileupload.css'); ?>
