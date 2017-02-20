@@ -21,9 +21,6 @@ class CreateMedia extends AbstractMigration
             'null' => true,
         ]);
         $table->addIndex(['entity_class',]);
-        $table->addIndex(['entity_id', 'entity_class'], [
-            'unique' => true,
-        ]);
         $table->addColumn('title', 'string', [
             'limit' => 255,
         ]);
@@ -56,6 +53,9 @@ class CreateMedia extends AbstractMigration
         $table->addColumn('deleted', 'datetime', [
             'default' => null,
             'null' => true,
+        ]);
+        $table->addIndex(['entity_id', 'entity_class', 'deleted'], [
+            'unique' => true,
         ]);
         $table->create();
 

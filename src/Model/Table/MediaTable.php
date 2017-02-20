@@ -112,10 +112,4 @@ class MediaTable extends Table
     {
         return $rules;
     }
-
-    public function afterDelete(Event $event, EntityInterface $entity, ArrayObject $options)
-    {
-        //TODO delete files
-        debug($entity);die;
-    }
 }

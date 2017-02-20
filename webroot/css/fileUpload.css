@@ -1,0 +1,17 @@
+.file-upload .file-info img {
+    width: 100px;
+}
+
+.file-upload .file-info {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /*border: 1px solid black;*/
+}
+
+.file-upload .file-info .file-name {
+    /*padding-top: 50px;*/
+}
+
+.file-upload .file-info .remove-button {
+    /*padding-top: 45px;*/
+}

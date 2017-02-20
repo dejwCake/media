@@ -16,7 +16,7 @@ trait HasMediaTrait
 
     public function setMediaTable()
     {
-        if(!empty($this->mediaTable)) {
+        if(empty($this->mediaTable)) {
             $this->mediaTable = TableRegistry::get(Configure::read('Media.table'));
         }
     }
@@ -46,7 +46,7 @@ trait HasMediaTrait
             $this->setMediaTable();
             $query = $this->mediaTable->find('all')
                 ->where([$this->mediaTable->alias().'.entity_id =' => $this->id])
-                ->where([$this->mediaTable->alias().'.entity_class =' => get_class($this->id)]);
+                ->where([$this->mediaTable->alias().'.entity_class =' => get_class($this)]);
             if(!empty($collectionName)) {
                 $query = $query->where([$this->mediaTable->alias().'.collection_name =' => $collectionName]);
             }
@@ -55,7 +55,6 @@ trait HasMediaTrait
             $col = (new Collection($this->media))->filter(function($item) use ($collectionName) {
                 return $item->collection_name == $collectionName;
             });
-            debug($col);
             return $col;
         }
     }

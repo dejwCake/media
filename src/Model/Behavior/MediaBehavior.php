@@ -56,7 +56,7 @@ class MediaBehavior extends Behavior
         $mediaCollections = $this->_table->getMediaCollections();
         foreach($mediaCollections as $mediaCollectionName => $mediaCollection) {
             if(empty($mediaData[$mediaCollectionName]['file'])) {
-                if(!empty($mediaData[$mediaCollectionName]['hasDeleted']) ) {
+                if(!empty($mediaData[$mediaCollectionName]['deleted']) ) {
                     $existingMedia = $this->getMedia($persistedEntity, $mediaCollectionName);
                     foreach($existingMedia as $existingFile) {
                         $this->mediaTable->delete($existingFile);

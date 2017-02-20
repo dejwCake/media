@@ -151,7 +151,7 @@ class Media extends Entity
      */
     public function getUrl($conversionName = '')
     {
-        return str_replace(WWW_ROOT, "", Configure::read('Media.disks.'.$this->_properties['disk'].'.root') . DS . $this->getPathRelativeToRoot($conversionName));
+        return str_replace(WWW_ROOT, "/", Configure::read('Media.disks.'.$this->_properties['disk'].'.root') . DS . $this->getPathRelativeToRoot($conversionName));
     }
 
     /**

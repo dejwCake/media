@@ -37,7 +37,7 @@ Configure::write('Media', [
       *     - custom: user must provide new name, if not will use original filename
       */
     'newfilename' => 'dashTime',
-    'square50' => array(50, 50, true),
+    'square50' => [50, 50, true],
 //        'square100' => array(100, 100, true),
 //        'square200' => array(200, 200, true),
 //        'square400' => array(400, 400, true),
@@ -51,10 +51,9 @@ Configure::write('Media', [
      *
      * array(width, height, square, quality), if square set to TRUE, image will be in square
      */
-    'dimensions' => array(
-
-//
-    ),
+    'dimensions' => [
+//        'size200' => [200, 200, false],
+    ],
 
     /*
      * Dimension identifier. If TRUE will use dimension name as suffix, if FALSE use directory.
