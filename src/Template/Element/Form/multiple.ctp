@@ -2,6 +2,7 @@
     <div class="form-group">
         <label class="control-label" for="title"><?= $collection["title"] ?></label>
         <?php
+        //TODO multiple
         $medium = null;
         if(!is_null($this->request->data('medium.'.$collection["name"]))) {
             $medium = new stdClass();

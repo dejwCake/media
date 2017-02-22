@@ -2,6 +2,6 @@
     foreach ($collections as $collectionName => $collection):
         $collection = $collection + ['name' => $collectionName,];
         if($collection['type'] == 'gallery'):
-            echo $this->element('DejwCake/Media.Type/multiple', ['collection' => $collection, 'object' => $object, 'template' => $collection['type'].'Template']);
+            echo $this->element('DejwCake/Media.View/multiple', ['collection' => $collection, 'object' => $object]);
         endif;
     endforeach;

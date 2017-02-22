@@ -176,6 +176,6 @@ class Media extends Entity
             return (new PathGenerator())->getPath($this).$this->_properties['file_name'];
         }
 
-        return (new PathGenerator())->getPathForConversions($this).$conversionName.'.'.$this->_properties['extension'];
+        return (new PathGenerator())->getPathForConversions($this).$conversionName.'.'.$this->extension;
     }
 }

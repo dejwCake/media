@@ -38,14 +38,15 @@ trait HasMediaTrait
      *
      * @param string $collectionName
      * @param array $filters
+     * @param bool $force
      * @return mixed
      */
-    public function getMedia($collectionName = '', $filters = [])
+    public function getMedia($collectionName = '', $filters = [], $force = false)
     {
-        if(is_null($this->media)) {
+        if(is_null($this->media) || $force) {
             $this->setMediaTable();
             $query = $this->mediaTable->find('all')
-                ->where([$this->mediaTable->alias().'.entity_id =' => $this->id])
+                ->where([$this->mediaTable->alias().'.entity_id' => $this->id])
                 ->where([$this->mediaTable->alias().'.entity_class =' => get_class($this)]);
             if(!empty($collectionName)) {
                 $query = $query->where([$this->mediaTable->alias().'.collection_name =' => $collectionName]);

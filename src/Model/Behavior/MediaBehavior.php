@@ -52,6 +52,13 @@ class MediaBehavior extends Behavior
     public function afterSave(Event $event, EntityInterface $entity)
     {
         $persistedEntity = $this->getPersistedEntityWithMedia($entity);
+        if(empty($persistedEntity) && !empty($entity->deleted) && $entity->dirty('deleted')) {
+            //we have soft deleted entity, soft deleting also media
+            foreach ($entity->getMedia('', [], true) as $media) {
+                $media->delete();
+            }
+            return true;
+        }
         $mediaData = $entity->medium;
         $mediaCollections = $this->_table->getMediaCollections();
         foreach($mediaCollections as $mediaCollectionName => $mediaCollection) {
@@ -89,7 +96,7 @@ class MediaBehavior extends Behavior
         $persistedEntity = $this->_table
             ->find('media')
             ->where([$this->_table->alias().'.id' => $entity->id])
-            ->firstOrFail();
+            ->first();
         return $persistedEntity;
     }
 
