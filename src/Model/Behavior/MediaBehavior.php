@@ -51,34 +51,69 @@ class MediaBehavior extends Behavior
 
     public function afterSave(Event $event, EntityInterface $entity)
     {
+        //get persisted entity
         $persistedEntity = $this->getPersistedEntityWithMedia($entity);
+
+        //we have soft deleted entity, soft deleting also media
         if(empty($persistedEntity) && !empty($entity->deleted) && $entity->dirty('deleted')) {
-            //we have soft deleted entity, soft deleting also media
-            foreach ($entity->getMedia('', [], true) as $media) {
-                $media->delete();
+            foreach ($entity->getMedia('', [], true) as $medium) {
+                $medium->delete();
             }
             return true;
         }
+
+        //get sent media data
         $mediaData = $entity->medium;
+        //get collections and iterate over them
         $mediaCollections = $this->_table->getMediaCollections();
         foreach($mediaCollections as $mediaCollectionName => $mediaCollection) {
-            if(empty($mediaData[$mediaCollectionName]['file'])) {
-                if(!empty($mediaData[$mediaCollectionName]['deleted']) ) {
-                    $existingMedia = $this->getMedia($persistedEntity, $mediaCollectionName);
-                    foreach($existingMedia as $existingFile) {
-                        $this->mediaTable->delete($existingFile);
+            if(!empty($mediaData[$mediaCollectionName]) && is_array($mediaData[$mediaCollectionName])) {
+                //if have data for collection and is is an array
+
+                if($mediaCollection['multiple'] || $mediaCollection['type'] == 'gallery') {
+                    //process gallery or multiple item collection
+                    //get media id for delete
+                    $existingMediaForDelete = (new Collection($persistedEntity->getMedia($mediaCollectionName)))->indexBy('id')->toArray();
+                    foreach ($mediaData[$mediaCollectionName] as $medium) {
+                        if(!empty($medium['id'])) {
+                            //if id is present, remove from for delete based on deleted flag
+                            if(empty($medium['deleted'])) {
+                                //remove from existingMediaForDelete
+                                unset($existingMediaForDelete[$medium['id']]);
+                            }
+                        } else {
+                            //if id is not present add file
+                            if (!empty($medium['file']) && empty($medium['deleted'])){
+                                //add file to entity
+                                if(is_file($medium['file'])) {
+                                    $this->addMediaToCollection($persistedEntity, $medium['file'], $mediaCollectionName);
+                                }
+                            }
+                        }
+                    }
+                    //delete existing media for delete
+                    foreach ($existingMediaForDelete as $existingMediumForDelete) {
+                        $this->mediaTable->delete($existingMediumForDelete);
+                    }
+                } else {
+                    $medium = array_shift($mediaData[$mediaCollectionName]);
+
+                    if(empty($medium['file'])) {
+                        if(!empty($medium['deleted']) ) {
+                            $this->clearMediaCollection($persistedEntity, $mediaCollectionName);
+                        }
+                        continue;
+                    }
+                    if(is_file($medium['file'])) {
+                        $this->clearMediaCollection($persistedEntity, $mediaCollectionName);
+                        $this->addMediaToCollection($persistedEntity, $medium['file'], $mediaCollectionName);
                     }
                 }
-                continue;
-            }
-            $filePath = $mediaData[$mediaCollectionName]['file'];
-            if(is_file($filePath)) {
+            } else {
+                //if no data for collection, clear it
                 $this->clearMediaCollection($persistedEntity, $mediaCollectionName);
-                $this->addMediaToCollection($persistedEntity, $filePath, $mediaCollectionName);
             }
         }
-
-        //TODO process gallery
     }
 
     protected function addMediaToCollection(EntityInterface $entity, $filePath, $collectionName) {

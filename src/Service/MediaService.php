@@ -184,6 +184,7 @@ class MediaService
         if ($this->table->hasBehavior('Translate')) {
             $fields = $this->table->behaviors()->get('Translate')->config('fields');
             foreach (Configure::read('App.supportedLanguages') as $language => $languageSettings) {
+                if($languageSettings['locale'] == Configure::read('App.defaultLocale')) { continue; }
                 $translation[$languageSettings['locale']] = $this->table->newEntity();
                 foreach ($fields as $field) {
                     $translatedValue = $media->get($field);

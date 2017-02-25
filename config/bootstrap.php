@@ -37,7 +37,14 @@ Configure::write('Media', [
       *     - custom: user must provide new name, if not will use original filename
       */
     'newfilename' => 'dashTime',
-    'square50' => [50, 50, true],
+
+    /*
+     * Sizes, used to crop and create multiple size.
+     *
+     * array(width, height, square, quality), if square set to TRUE, image will be in square
+     */
+    'dimensions' => [
+//        'square50' => [50, 50, true],
 //        'square100' => array(100, 100, true),
 //        'square200' => array(200, 200, true),
 //        'square400' => array(400, 400, true),
@@ -46,13 +53,6 @@ Configure::write('Media', [
 //        'size100' => array(100, 100, false),
 //        'size200' => array(200, 200, false),
 //        'size400' => array(400, 400, false),
-    /*
-     * Sizes, used to crop and create multiple size.
-     *
-     * array(width, height, square, quality), if square set to TRUE, image will be in square
-     */
-    'dimensions' => [
-//        'size200' => [200, 200, false],
     ],
 
     /*
@@ -95,4 +95,11 @@ Configure::write('Media', [
             'root'   => WWW_ROOT . 'files'. DS .'media',
         ],
     ],
+
+    'templates' => [
+        'fileTemplate',
+        'imageTemplate',
+    ],
+
+    'defaultTemplate' => 'image',
 ]);

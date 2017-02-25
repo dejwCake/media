@@ -41,14 +41,13 @@ class UploaderController extends AppController
     public function upload() {
         $this->RequestHandler->renderAs($this, 'json');
         if ($this->request->data('fileinput')) {
-            $file = $this->request->data('fileinput');
-            if(is_array($file)) {
-                $file = array_values($file);
-                $file = array_shift($file);
+            $files = $this->request->data('fileinput');
+//            debug($files);
+            foreach ($files as $key => $file) {
+                $fileInfo = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['size'], $file['error']);
+                $uploaderService = new UploadService();
+                $response[] = $uploaderService->upload($fileInfo);
             }
-            $fileInfo = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['size'], $file['error']);
-            $uploaderService = new UploadService();
-            $response = $uploaderService->upload($fileInfo);
         } else {
             $response = '';
         }
