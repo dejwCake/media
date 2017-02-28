@@ -14,6 +14,8 @@ use DejwCake\Media\Service\UploadService;
  */
 class UploaderController extends AppController
 {
+    protected $wysiwygUploadPath;
+
     /**
      * Before filter callback.
      *
@@ -23,6 +25,10 @@ class UploaderController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
+        if($this->request->action == 'ckeditorUpload') {
+            $this->eventManager()->off($this->Csrf);
+        }
+
     }
 
     /**
@@ -53,5 +59,24 @@ class UploaderController extends AppController
         }
         $this->set(compact('response'));
         $this->set('_serialize', ['response']);
+    }
+
+    public function ckeditorUpload()
+    {
+        $funcNum = $this->request->query["CKEditorFuncNum"];
+        $message = '';
+
+        if (!$this->request->data('upload')) {
+            $message = __d('media', 'Failed to uplad - file not sent');
+        }
+
+        $file = $this->request->data('upload');
+        $fileInfo = new UploadedFile($file['tmp_name'], $file['name'], $file['type'], $file['size'], $file['error']);
+        $uploaderService = new UploadService();
+        $uploaderService->setCkeditor(true);
+        $response = $uploaderService->upload($fileInfo);
+        $url = DS . $response['original_filedir'];
+
+        echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '$url', '$message');</script>";
     }
 }

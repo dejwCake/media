@@ -18,10 +18,13 @@ class UploadService
             $this->library = Configure::read('Media.library');
             $this->quality = Configure::read('Media.quality');
             $this->uploadpath = Configure::read('Media.path');
+            $this->ckeditoruploadpath = Configure::read('Media.ckeditorPath');
             $this->newfilename = Configure::read('Media.newfilename');
             $this->dimensions = Configure::read('Media.dimensions');
             $this->suffix = Configure::read('Media.suffix');
             $this->exif = Configure::read('Media.exif');
+
+            $this->isCkeditor = false;
 
             // Now create the instance
             if ($this->library == 'imagick') $this->imagine = new \Imagine\Imagick\Imagine();
@@ -48,11 +51,16 @@ class UploadService
 
     public function upload($filesource, $newfilename = null, $dir = null)
     {
-        $isPathOk = $this->checkPathIsOk($this->uploadpath, $dir);
+        if($this->isCkeditor) {
+            $uploadpath = $this->ckeditoruploadpath;
+        } else {
+            $uploadpath = $this->uploadpath;
+        }
+        $isPathOk = $this->checkPathIsOk($uploadpath, $dir);
 
         if ($isPathOk) {
             if ($filesource) {
-                $this->results['path'] = rtrim($this->uploadpath, DS) . ($dir ? DS . trim($dir, DS) : '');
+                $this->results['path'] = rtrim($uploadpath, DS) . ($dir ? DS . trim($dir, DS) : '');
                 $this->results['dir'] = str_replace(WWW_ROOT, '', $this->results['path']);
                 $this->results['original_filename'] = $filesource->getClientOriginalName();
                 $this->results['original_filepath'] = $filesource->getRealPath();
@@ -174,5 +182,10 @@ class UploadService
         }
 
         return $exifdata;
+    }
+
+    public function setCkeditor($status = true)
+    {
+        $this->isCkeditor = $status;
     }
 }

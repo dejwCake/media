@@ -82,7 +82,7 @@
 <?php $this->append('scriptBottom'); ?>
 <?php echo $this->Html->script('DejwCake/AdminLTE./plugins/iCheck/icheck.min.js'); ?>
 <?php echo $this->Html->script('DejwCake/AdminLTE./plugins/select2/select2.full.min.js'); ?>
-<?php echo $this->Html->script('https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js'); ?>
+<?php echo $this->Html->script('DejwCake/AdminLTE./plugins/ckeditor/ckeditor.js'); ?>
     <script type="text/javascript">
         $(function () {
             CKEDITOR.replaceAll('ckeditor');

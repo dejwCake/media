@@ -10,6 +10,7 @@ Router::prefix('media', ['_namePrefix' => 'media:'], function ($routes) {
         function (RouteBuilder $routes) {
             $routes->scope('/upload', function (RouteBuilder $routes) {
                 $routes->connect('/', ['controller' => 'Uploader', 'action' => 'upload', 'plugin' => 'DejwCake/Media']);
+                $routes->connect('/ckeditor', ['controller' => 'Uploader', 'action' => 'ckeditorUpload', 'plugin' => 'DejwCake/Media']);
             });
         });
 });

@@ -23,7 +23,8 @@ Configure::write('Media', [
      *
      * Default: public/uploads/images
      */
-    'path' => WWW_ROOT . 'files'. DS .'uploads',
+    'path' => WWW_ROOT . 'files' . DS . 'uploads',
+    'ckeditorPath' => WWW_ROOT . 'files' . DS . 'ckeditor',
 
     /*
       * Use original name. If set to false, will use hashed name.
