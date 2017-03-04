@@ -130,6 +130,27 @@ class GalleriesTable extends Table
      */
     public function getMediaCollections() {
         return [
+            'cover' => [
+                'title' => __('Cover'),
+                'type' => 'image',
+                'template' => 'imageTemplate',
+                'multiple' => false,
+                'conversions' => [
+                    'original' => [
+                        'name' => 'Original',
+                    ],
+                    'thumb' => [
+                        'name' => 'Thumb',
+                        'width' => '215',
+                        'height' => '130',
+                    ],
+                    'thumbRetina' => [
+                        'name' => 'Thumb Retina',
+                        'width' => '430',
+                        'height' => '260',
+                    ],
+                ],
+            ],
             'images' => [
                 'title' => __('Images'),
                 'type' => 'gallery',
@@ -141,13 +162,13 @@ class GalleriesTable extends Table
                     ],
                     'thumb' => [
                         'name' => 'Thumb',
-                        'width' => '100',
-                        'height' => '100',
+                        'width' => '215',
+                        'height' => '130',
                     ],
                     'thumbRetina' => [
                         'name' => 'Thumb Retina',
-                        'width' => '200',
-                        'height' => '200',
+                        'width' => '430',
+                        'height' => '260',
                     ],
                 ],
             ],
