@@ -10,16 +10,24 @@
                 $medium->name = $mediumItem["name"];
                 $medium->thumb = $mediumItem["thumb"];
                 $medium->deleted = $mediumItem["deleted"];
+                $medium->title = $mediumItem["title"];
                 $media[] = $medium;
             }
         } else if(!empty($mediumItems = $object->getMedia($collection['name']))) {
-            $media = $mediumItems->map(function($mediumItem) {
+            $media = $mediumItems->map(function($mediumItem) use($supportedLanguages, $defaultLocale) {
                 $medium = new stdClass();
                 $medium->id = $mediumItem->id;
                 $medium->file = '';
                 $medium->name = $mediumItem->file_name;
                 $medium->thumb = $mediumItem->getUrl();
                 $medium->deleted = 0;
+                foreach ($supportedLanguages as $language => $languageSettings):
+                    if($languageSettings['locale'] == $defaultLocale) {
+                        $medium->title[$languageSettings['locale']] = $mediumItem->title;
+                    } else {
+                        $medium->title[$languageSettings['locale']] = $mediumItem->translation($languageSettings['locale'])->title;
+                    }
+                endforeach;
                 return $medium;
             });
             $media = $media->toArray();

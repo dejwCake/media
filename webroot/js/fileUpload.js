@@ -23,10 +23,12 @@ var FileUpload = {
                     responseFile.name = medium.name;
                     responseFile.thumbUrl = medium.thumb;
                     responseFile.deleted = medium.deleted;
+                    responseFile.title = medium.title;
 
                     fileUpload.attachFileFinished(medium.index, context, responseFile);
                     //Fill hidden inputs with proper values
                     fileUpload.setHiddenValues(medium.index, context, responseFile);
+                    fileUpload.setTitleValues(medium.index, context, responseFile);
                 }
             });
         }
@@ -123,6 +125,11 @@ var FileUpload = {
         //prepare remove button
         fileUpload.setRemoveButton(context.files.find('[data-index="'+file.index+'"]'), context);
         context.files.find('[data-index="'+file.index+'"]').find('[data-provides="remove-button"]').hide();
+
+        //TODO change title name attribute
+        context.files.find('[data-index="'+file.index+'"]').find('[data-provides="title"]').each(function() {
+            $(this).attr('name', 'medium['+context.collectionName+']['+file.index+'][title]['+$(this).attr('data-locale')+']');
+        });
     },
 
     attachFileFinished: function (index, context, responseFile) {
@@ -179,6 +186,15 @@ var FileUpload = {
             context.hiddenInputs.append(nameInput);
             context.hiddenInputs.append(thumbInput);
             context.hiddenInputs.append(deletedInput);
+        }
+    },
+
+    setTitleValues: function(index, context, responseFile) {
+        //Fill title inputs with proper values
+        if(context.files.find('[data-index="'+index+'"]').find('[data-provides="title"]').length > 0) {
+            $.each(responseFile.title, function (locale, title) {
+                context.files.find('[data-index="'+index+'"]').find('[data-provides="title"][data-locale="'+locale+'"]').val(title);
+            });
         }
     },
 

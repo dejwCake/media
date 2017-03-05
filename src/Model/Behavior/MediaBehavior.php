@@ -69,7 +69,6 @@ class MediaBehavior extends Behavior
         foreach($mediaCollections as $mediaCollectionName => $mediaCollection) {
             if(!empty($mediaData[$mediaCollectionName]) && is_array($mediaData[$mediaCollectionName])) {
                 //if have data for collection and is is an array
-
                 if($mediaCollection['multiple'] || $mediaCollection['type'] == 'gallery') {
                     //process gallery or multiple item collection
                     //get media id for delete
@@ -80,13 +79,14 @@ class MediaBehavior extends Behavior
                             if(empty($medium['deleted'])) {
                                 //remove from existingMediaForDelete
                                 unset($existingMediaForDelete[$medium['id']]);
+                                (new MediaService($persistedEntity, $this->_table, $this->mediaTable))->updateTitles($medium['id'], $medium['title']);
                             }
                         } else {
                             //if id is not present add file
                             if (!empty($medium['file']) && empty($medium['deleted'])){
                                 //add file to entity
                                 if(is_file($medium['file'])) {
-                                    $this->addMediaToCollection($persistedEntity, $medium['file'], $mediaCollectionName);
+                                    $this->addMediaToCollection($persistedEntity, $medium['file'], $mediaCollectionName, $medium['title']);
                                 }
                             }
                         }
@@ -97,16 +97,20 @@ class MediaBehavior extends Behavior
                     }
                 } else {
                     $medium = array_shift($mediaData[$mediaCollectionName]);
-
                     if(empty($medium['file'])) {
                         if(!empty($medium['deleted']) ) {
                             $this->clearMediaCollection($persistedEntity, $mediaCollectionName);
+                        } else {
+                            //update title
+                            if(!empty($medium['id'])) {
+                                (new MediaService($persistedEntity, $this->_table, $this->mediaTable))->updateTitles($medium['id'], $medium['title']);
+                            }
                         }
                         continue;
                     }
                     if(is_file($medium['file'])) {
                         $this->clearMediaCollection($persistedEntity, $mediaCollectionName);
-                        $this->addMediaToCollection($persistedEntity, $medium['file'], $mediaCollectionName);
+                        $this->addMediaToCollection($persistedEntity, $medium['file'], $mediaCollectionName, $medium['title']);
                     }
                 }
             } else {
@@ -116,9 +120,10 @@ class MediaBehavior extends Behavior
         }
     }
 
-    protected function addMediaToCollection(EntityInterface $entity, $filePath, $collectionName) {
+    protected function addMediaToCollection(EntityInterface $entity, $filePath, $collectionName, $title) {
         (new MediaService($entity, $this->_table, $this->mediaTable))
             ->setFile($filePath)
+            ->setTitles($title)
             ->toCollection($collectionName);
     }
 

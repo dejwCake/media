@@ -4,7 +4,18 @@
             <img src="" alt="thumb image" data-provides="thumb-image" class="hidden img-thumbnail" />
         </div>
         <div class="col-sm-6 file-name">
-            <span data-provides="file-name">{{ filename }}</span>
+            <div class="form-group row">
+                <label class="col-xs-12 col-sm-4" for="title"><?= __d('media', 'File name') ?></label>
+                <div class="col-xs-12 col-sm-8" data-provides="file-name">{{ filename }}</div>
+            </div>
+            <?php foreach ($supportedLanguages as $language => $languageSettings): ?>
+                <div class="form-group row">
+                    <label class="col-xs-12 col-sm-4" for="title"><?= __d('media', 'Title ({0})', $languageSettings['title']) ?></label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input class="form-control" type="text" name="title[<?= $languageSettings['locale'] ?>]" data-locale="<?= $languageSettings['locale'] ?>" maxlength="255" data-provides="title" />
+                    </div>
+                </div>
+            <?php endforeach; ?>
             <div class="progress">
                 <div class="progress-bar progress-bar-success"></div>
             </div>

@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
         Category
-        <small><?= __('Add') ?></small>
+        <small><?= __d('media', 'Add') ?></small>
     </h1>
     <ol class="breadcrumb">
         <li>
-            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __('Back'), ['action' => 'index'], ['escape' => false]) ?>
+            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __d('media', 'Back'), ['action' => 'index'], ['escape' => false]) ?>
         </li>
     </ol>
 </section>
@@ -18,7 +18,7 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><?= __('Form') ?></h3>
+                    <h3 class="box-title"><?= __d('media', 'Form') ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -28,7 +28,7 @@
                         echo $this->Form->input('table_link');
                         echo $this->Form->input('parent_id', ['options' => $parentCategories, 'empty' => true]);
                         echo $this->Form->input('view');
-                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __("Select Locale"), 'multiple' => true, 'required' => false]);
+                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('media', "Select Locale"), 'multiple' => true, 'required' => false]);
                         echo $this->element('DejwCake/Media.file-standard-row', ['collection' => ['title' => 'Image', 'name' => 'image'], 'object' => $category]);
                     ?>
                     <div class="nav-tabs-custom">
@@ -62,7 +62,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <?= $this->Form->button(__('Save')) ?>
+                    <?= $this->Form->button(__d('media', 'Save')) ?>
                 </div>
                 <?= $this->Form->end() ?>
             </div>

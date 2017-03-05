@@ -53,6 +53,12 @@ class MediaService
      * @var MediaFileService
      */
     protected $mediaFileService;
+
+    /**
+     * @var string|array
+     */
+    protected $title;
+
     /**
      * @var
      */
@@ -127,6 +133,19 @@ class MediaService
     }
 
     /**
+     * Set titles for the media.
+     *
+     * @param $title
+     *
+     * @return $this
+     */
+    public function setTitles($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
      * Set the collection name where to import the file.
      * Will also start the import process.
      *
@@ -180,15 +199,22 @@ class MediaService
         $media = $this->table->patchEntity($mediaEntity, $mediaData, [
             'validate' => true,
         ]);
-        //TODO fix title translation
         if ($this->table->hasBehavior('Translate')) {
             $fields = $this->table->behaviors()->get('Translate')->config('fields');
             foreach (Configure::read('App.supportedLanguages') as $language => $languageSettings) {
-                if($languageSettings['locale'] == Configure::read('App.defaultLocale')) { continue; }
-                $translation[$languageSettings['locale']] = $this->table->newEntity();
-                foreach ($fields as $field) {
-                    $translatedValue = $media->get($field);
-                    $translation[$languageSettings['locale']][$field] = $translatedValue;
+                if($languageSettings['locale'] == Configure::read('App.defaultLocale')) {
+                    if(!empty($this->title[$languageSettings['locale']])) {
+                        $media->set('title', $this->title[$languageSettings['locale']]);
+                    }
+                } else {
+                    $translation[$languageSettings['locale']] = $this->table->newEntity();
+                    foreach ($fields as $field) {
+                        $translatedValue = $media->get($field);
+                        $translation[$languageSettings['locale']][$field] = $translatedValue;
+                    }
+                    if(!empty($this->title[$languageSettings['locale']])) {
+                        $translation[$languageSettings['locale']]['title'] = $this->title[$languageSettings['locale']];
+                    }
                 }
             }
             $media->set('_translations', $translation);
@@ -204,6 +230,30 @@ class MediaService
         }
 
         return $media;
+    }
+
+    public function updateTitles($id, $title)
+    {
+        $mediaEntity = $this->table->find('translations')->where(['id' => $id])->first();
+        if($mediaEntity) {
+            $mediaEntity = $this->table->patchEntity($mediaEntity, [], [
+                'translations' => true
+            ]);
+
+            if ($this->table->hasBehavior('Translate')) {
+                foreach (Configure::read('App.supportedLanguages') as $language => $languageSettings) {
+                    if($languageSettings['locale'] == Configure::read('App.defaultLocale')) {
+                        $mediaEntity->set('title', !empty($title[$languageSettings['locale']]) ? $title[$languageSettings['locale']] : '');
+                    } else {
+                        $translation[$languageSettings['locale']] = $this->table->newEntity();
+                        $translation[$languageSettings['locale']]['title'] = !empty($title[$languageSettings['locale']]) ? $title[$languageSettings['locale']] : '';
+                    }
+                }
+                $mediaEntity->set('_translations', $translation);
+            }
+            return $this->table->save($mediaEntity);
+        }
+        return false;
     }
 
     /**

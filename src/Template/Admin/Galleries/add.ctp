@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
-        <?= __('Gallery') ?>
-        <small><?= __('Add') ?></small>
+        <?= __d('media', 'Gallery') ?>
+        <small><?= __d('media', 'Add') ?></small>
     </h1>
     <ol class="breadcrumb">
         <li>
-            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __('Back'), ['action' => 'index'], ['escape' => false]) ?>
+            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __d('media', 'Back'), ['action' => 'index'], ['escape' => false]) ?>
         </li>
     </ol>
 </section>
@@ -18,19 +18,14 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><?= __('Form') ?></h3>
+                    <h3 class="box-title"><?= __d('media', 'Form') ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <?= $this->Form->create($gallery, ['role' => 'form']) ?>
                 <div class="box-body">
                     <?php
-                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __("Select Locale"), 'multiple' => true, 'required' => false]);
-
-                        //Media part
-                        echo $this->element('DejwCake/Media.Resource/fetch');
-                        echo $this->element('DejwCake/Media.Form/Template/template_all');
-                        echo $this->element('DejwCake/Media.Form/media_all', ['collections' => $collections, 'object' => $gallery]);
+                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('media', 'Select Locale'), 'multiple' => true, 'required' => false]);
                     ?>
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
@@ -62,10 +57,16 @@
                         <!-- /.tab-content -->
                     </div>
                     <!-- nav-tabs-custom -->
+                    <?php
+                        //Media part
+                        echo $this->element('DejwCake/Media.Resource/fetch');
+                        echo $this->element('DejwCake/Media.Form/Template/template_all');
+                        echo $this->element('DejwCake/Media.Form/media_all', ['collections' => $collections, 'object' => $gallery]);
+                    ?>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <?= $this->Form->button(__('Save')) ?>
+                    <?= $this->Form->button(__d('media', 'Save')) ?>
                 </div>
                 <?= $this->Form->end() ?>
             </div>

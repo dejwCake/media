@@ -105,8 +105,8 @@ class GalleriesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['title', 'deleted'], ['allowMultipleNulls' => false, 'message' => __('This value is not unique')]));
-        $rules->add($rules->isUnique(['slug', 'deleted'], ['allowMultipleNulls' => false, 'message' => __('This value is not unique')]));
+        $rules->add($rules->isUnique(['title', 'deleted'], ['allowMultipleNulls' => false, 'message' => __d('media', 'This value is not unique')]));
+        $rules->add($rules->isUnique(['slug', 'deleted'], ['allowMultipleNulls' => false, 'message' => __d('media', 'This value is not unique')]));
 
         return $rules;
     }
@@ -131,7 +131,7 @@ class GalleriesTable extends Table
     public function getMediaCollections() {
         return [
             'cover' => [
-                'title' => __('Cover'),
+                'title' => __d('media', 'Cover'),
                 'type' => 'image',
                 'template' => 'imageTemplate',
                 'multiple' => false,
@@ -152,7 +152,7 @@ class GalleriesTable extends Table
                 ],
             ],
             'images' => [
-                'title' => __('Images'),
+                'title' => __d('media', 'Images'),
                 'type' => 'gallery',
                 'template' => 'imageTemplate',
                 'multiple' => true,
