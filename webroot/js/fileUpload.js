@@ -13,7 +13,6 @@ var FileUpload = {
             $.each(media, function (index, medium) {
                 media[index].index = i;
                 i++;
-                console.log(medium);
                 if(typeof medium.name != typeof undefined && medium.name != null && medium.name != '') {
                     //attach rendered template
                     fileUpload.attachFile(medium, context);
