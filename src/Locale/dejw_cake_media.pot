@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2017-03-05 22:59+0000\n"
+"POT-Creation-Date: 2017-03-06 23:19+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -31,19 +31,19 @@ msgid "The gallery could not be deleted. Please, try again."
 msgstr ""
 
 #: Controller/Admin/GalleriesController.php:177
-msgid "You must pass an array to sort"
+msgid "You must pass an array to sort."
 msgstr ""
 
 #: Controller/Admin/GalleriesController.php:180
-msgid "The gallery reorder has been changed."
+msgid "The gallery order has been changed."
 msgstr ""
 
 #: Controller/Media/UploaderController.php:70
-msgid "Failed to uplad - file not sent"
+msgid "Failed to upload - file not sent."
 msgstr ""
 
 #: Model/Table/GalleriesTable.php:108;109
-msgid "This value is not unique"
+msgid "This value is not unique."
 msgstr ""
 
 #: Model/Table/GalleriesTable.php:134

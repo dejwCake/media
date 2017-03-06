@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <?= __d('media', 'Galleries'); ?>
+        <?= __d('dejw_cake_media', 'Galleries'); ?>
     </h1>
     <ol class="breadcrumb">
         <li>
-            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __d('media', 'Back'), ['action' => 'index'], ['escape' => false]) ?>
+            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __d('dejw_cake_media', 'Back'), ['action' => 'index'], ['escape' => false]) ?>
         </li>
     </ol>
 </section>
@@ -16,7 +16,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title"><?= __d('media', 'Sort Galleries') ?></h3>
+                    <h3 class="box-title"><?= __d('dejw_cake_media', 'Sort Galleries') ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -31,7 +31,7 @@
                             <?php endforeach; ?>
                         </ol>
                     <?php else: ?>
-                        <?= __d('media', 'No Galleries to sort.') ?>
+                        <?= __d('dejw_cake_media', 'No Galleries to sort.') ?>
                     <?php endif; ?>
                 </div>
                 <!-- /.box-body -->
@@ -39,7 +39,7 @@
                     <?php if($galleries->count() && !empty($gallery)): ?>
                         <?= $this->Form->create($gallery, ['role' => 'form', 'id' => 'sortForm']) ?>
                             <input type="hidden" name="ids" value="[]" />
-                            <?= $this->Form->button(__d('media', 'Save')) ?>
+                            <?= $this->Form->button(__d('dejw_cake_media', 'Save')) ?>
                         <?= $this->Form->end() ?>
                     <?php endif; ?>
                 </div>

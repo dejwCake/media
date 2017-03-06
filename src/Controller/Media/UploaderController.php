@@ -67,7 +67,7 @@ class UploaderController extends AppController
         $message = '';
 
         if (!$this->request->data('upload')) {
-            $message = __d('media', 'Failed to uplad - file not sent');
+            $message = __d('dejw_cake_media', 'Failed to upload - file not sent.');
         }
 
         $file = $this->request->data('upload');

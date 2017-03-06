@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
-        <?= __d('media', 'Gallery') ?>
-        <small><?= __d('media', 'Edit') ?></small>
+        <?= __d('dejw_cake_media', 'Gallery') ?>
+        <small><?= __d('dejw_cake_media', 'Edit') ?></small>
     </h1>
     <ol class="breadcrumb">
         <li>
-            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __d('media', 'Back'), ['action' => 'index'], ['escape' => false]) ?>
+            <?= $this->Html->link('<i class="fa fa-dashboard"></i> ' . __d('dejw_cake_media', 'Back'), ['action' => 'index'], ['escape' => false]) ?>
         </li>
     </ol>
 </section>
@@ -18,14 +18,14 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><?= __d('media', 'Form') ?></h3>
+                    <h3 class="box-title"><?= __d('dejw_cake_media', 'Form') ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <?= $this->Form->create($gallery, ['role' => 'form']) ?>
                 <div class="box-body">
                     <?php
-                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('media', 'Select Locale'), 'multiple' => true, 'required' => false]);
+                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('dejw_cake_media', 'Select Locale'), 'multiple' => true, 'required' => false]);
                     ?>
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
@@ -66,7 +66,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <?= $this->Form->button(__d('media', 'Save')) ?>
+                    <?= $this->Form->button(__d('dejw_cake_media', 'Save')) ?>
                 </div>
                 <?= $this->Form->end() ?>
             </div>

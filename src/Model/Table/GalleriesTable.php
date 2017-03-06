@@ -1,7 +1,7 @@
 <?php
 namespace DejwCake\Media\Model\Table;
 
-use Cake\Database\Schema\Table as Schema;
+use Cake\Database\Schema\TableSchema as Schema;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -38,9 +38,9 @@ class GalleriesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('galleries');
-        $this->displayField('title');
-        $this->primaryKey('id');
+        $this->setTable('galleries');
+        $this->setDisplayField('title');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Muffin/Trash.Trash');
@@ -105,8 +105,8 @@ class GalleriesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['title', 'deleted'], ['allowMultipleNulls' => false, 'message' => __d('media', 'This value is not unique')]));
-        $rules->add($rules->isUnique(['slug', 'deleted'], ['allowMultipleNulls' => false, 'message' => __d('media', 'This value is not unique')]));
+        $rules->add($rules->isUnique(['title', 'deleted'], ['allowMultipleNulls' => false, 'message' => __d('dejw_cake_media', 'This value is not unique.')]));
+        $rules->add($rules->isUnique(['slug', 'deleted'], ['allowMultipleNulls' => false, 'message' => __d('dejw_cake_media', 'This value is not unique.')]));
 
         return $rules;
     }
@@ -131,7 +131,7 @@ class GalleriesTable extends Table
     public function getMediaCollections() {
         return [
             'cover' => [
-                'title' => __d('media', 'Cover'),
+                'title' => __d('dejw_cake_media', 'Cover'),
                 'type' => 'image',
                 'template' => 'imageTemplate',
                 'multiple' => false,
@@ -152,7 +152,7 @@ class GalleriesTable extends Table
                 ],
             ],
             'images' => [
-                'title' => __d('media', 'Images'),
+                'title' => __d('dejw_cake_media', 'Images'),
                 'type' => 'gallery',
                 'template' => 'imageTemplate',
                 'multiple' => true,

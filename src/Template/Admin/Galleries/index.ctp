@@ -1,10 +1,10 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <?= __d('media', 'Galleries'); ?>
+        <?= __d('dejw_cake_media', 'Galleries'); ?>
         <div class="pull-right">
-            <?= $this->Html->link(__d('media', 'Sort'), ['action' => 'sort'], ['class' => 'btn btn-info btn-xs']) ?>
-            <?= $this->Html->link(__d('media', 'New'), ['action' => 'add'], ['class' => 'btn btn-success btn-xs']) ?>
+            <?= $this->Html->link(__d('dejw_cake_media', 'Sort'), ['action' => 'sort'], ['class' => 'btn btn-info btn-xs']) ?>
+            <?= $this->Html->link(__d('dejw_cake_media', 'New'), ['action' => 'add'], ['class' => 'btn btn-success btn-xs']) ?>
         </div>
     </h1>
 </section>
@@ -15,7 +15,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title"><?= __d('media', 'List of Galleries') ?></h3>
+                    <h3 class="box-title"><?= __d('dejw_cake_media', 'List of Galleries') ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -28,7 +28,7 @@
                                 <th scope="col"><?= $this->Paginator->sort('enabled_in_locales') ?></th>
                                 <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>-->
                                 <!--<th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
-                                <th scope="col" class="actions"><?= __d('media', 'Actions') ?></th>
+                                <th scope="col" class="actions"><?= __d('dejw_cake_media', 'Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,9 +41,9 @@
                                 <!--<td><?= h($gallery->created) ?></td>-->
                                 <!--<td><?= h($gallery->modified) ?></td>-->
                                 <td class="actions" style="white-space:nowrap">
-                                    <?= $this->Html->link(__d('media', 'View'), ['action' => 'view', $gallery->id], ['escape' => false, 'class' => 'btn btn-info btn-xs']) ?>
-                                    <?= $this->Html->link(__d('media', 'Edit'), ['action' => 'edit', $gallery->id], ['escape' => false, 'class' => 'btn btn-warning btn-xs']) ?>
-                                    <?= $this->Form->postLink(__d('media', 'Delete'), ['action' => 'delete', $gallery->id], ['escape' => false, 'confirm' => __d('media', 'Are you sure you want to delete this entry?'), 'class' => 'btn btn-danger btn-xs']) ?>
+                                    <?= $this->Html->link(__d('dejw_cake_media', 'View'), ['action' => 'view', $gallery->id], ['escape' => false, 'class' => 'btn btn-info btn-xs']) ?>
+                                    <?= $this->Html->link(__d('dejw_cake_media', 'Edit'), ['action' => 'edit', $gallery->id], ['escape' => false, 'class' => 'btn btn-warning btn-xs']) ?>
+                                    <?= $this->Form->postLink(__d('dejw_cake_media', 'Delete'), ['action' => 'delete', $gallery->id], ['escape' => false, 'confirm' => __d('dejw_cake_media', 'Are you sure you want to delete this entry?'), 'class' => 'btn btn-danger btn-xs']) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -56,7 +56,7 @@
                             <th scope="col"><?= $this->Paginator->sort('enabled_in_locales') ?></th>
                             <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>-->
                             <!--<th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
-                            <th scope="col" class="actions"><?= __d('media', 'Actions') ?></th>
+                            <th scope="col" class="actions"><?= __d('dejw_cake_media', 'Actions') ?></th>
                         </tr>
                         </tfoot>
                     </table>

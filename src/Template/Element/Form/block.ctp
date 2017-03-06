@@ -48,8 +48,8 @@
 
         <span class="btn btn-primary fileinput-button" data-provides="fileinput">
             <i class="glyphicon glyphicon-plus"></i>
-            <span data-provides="button-text" data-empty-text="<?= __d('media', 'Add files...') ?>" data-selected-text="<?= __d('media', 'Change') ?>">
-                <?= __d('media', 'Add files...') ?>
+            <span data-provides="button-text" data-empty-text="<?= __d('dejw_cake_media', 'Add files...') ?>" data-selected-text="<?= __d('dejw_cake_media', 'Change') ?>">
+                <?= __d('dejw_cake_media', 'Add files...') ?>
             </span>
             <!-- The file input field used as target for the file upload widget -->
             <input type="file" name="fileinput[]" <?php if($multiple) { echo 'multiple'; } ?> />

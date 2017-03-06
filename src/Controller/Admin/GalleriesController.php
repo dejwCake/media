@@ -92,12 +92,12 @@ class GalleriesController extends AppController
                 'translations' => true
             ]);
             if ($this->Galleries->save($gallery)) {
-                $this->Flash->success(__d('media', 'The gallery has been saved.'));
+                $this->Flash->success(__d('dejw_cake_media', 'The gallery has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
                 Log::error('Entity could not be saved. Entity: '.var_export($gallery, true));
-                $this->Flash->error(__d('media', 'The gallery could not be saved. Please, try again.'));
+                $this->Flash->error(__d('dejw_cake_media', 'The gallery could not be saved. Please, try again.'));
             }
         }
         $enabledInLocales = $this->getLocales();
@@ -125,12 +125,12 @@ class GalleriesController extends AppController
                 'translations' => true
             ]);
             if ($this->Galleries->save($gallery)) {
-                $this->Flash->success(__d('media', 'The gallery has been saved.'));
+                $this->Flash->success(__d('dejw_cake_media', 'The gallery has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
                 Log::error('Entity could not be saved. Entity: '.var_export($gallery, true));
-                $this->Flash->error(__d('media', 'The gallery could not be saved. Please, try again.'));
+                $this->Flash->error(__d('dejw_cake_media', 'The gallery could not be saved. Please, try again.'));
             }
         }
         $enabledInLocales = $this->getLocales();
@@ -151,9 +151,9 @@ class GalleriesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $gallery = $this->Galleries->get($id);
         if ($this->Galleries->delete($gallery)) {
-            $this->Flash->success(__d('media', 'The gallery has been deleted.'));
+            $this->Flash->success(__d('dejw_cake_media', 'The gallery has been deleted.'));
         } else {
-            $this->Flash->error(__d('media', 'The gallery could not be deleted. Please, try again.'));
+            $this->Flash->error(__d('dejw_cake_media', 'The gallery could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -174,10 +174,10 @@ class GalleriesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $items = json_decode($this->request->data('ids'));
             if (!is_array($items)) {
-                throw new BadRequestException(__d('media', 'You must pass an array to sort'));
+                throw new BadRequestException(__d('dejw_cake_media', 'You must pass an array to sort.'));
             }
             $this->Galleries->setNewSort($items);
-            $this->Flash->success(__d('media', 'The gallery reorder has been changed.'));
+            $this->Flash->success(__d('dejw_cake_media', 'The gallery order has been changed.'));
         }
 
         $this->set(compact('galleries'));
