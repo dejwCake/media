@@ -48,12 +48,11 @@ class GalleriesController extends AppController
      */
     public function index()
     {
-        $this->paginate += [
+        $galleries = $this->Galleries->find('translations', [
             'order' => [
-                'galleries.sort' => 'asc'
+                'Galleries.sort' => 'asc'
             ]
-        ];
-        $galleries = $this->paginate($this->Galleries);
+        ]);
 
         $this->set(compact('galleries'));
         $this->set('_serialize', ['galleries']);
