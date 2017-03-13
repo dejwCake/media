@@ -25,7 +25,7 @@
                 <?= $this->Form->create($gallery, ['role' => 'form']) ?>
                 <div class="box-body">
                     <?php
-                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('dejw_cake_media', 'Select Locale'), 'multiple' => true, 'required' => false]);
+                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('dejw_cake_media', 'Select Locale'), 'multiple' => true, 'required' => false, 'label' => __d('dejw_cake_media', 'Enabled In Locales')]);
                     ?>
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
@@ -43,11 +43,11 @@
                                  id="tab_<?= $i ?>">
                                 <?php
                                     if($languageSettings['locale'] == $defaultLocale){
-                                        echo $this->Form->input('title');
-                                        echo $this->Form->input('text', ['class' => 'ckeditor']);
+                                        echo $this->Form->input('title', ['label' => __d('dejw_cake_media', 'Title')]);
+                                        echo $this->Form->input('text', ['class' => 'ckeditor', 'label' => __d('dejw_cake_media', 'Text')]);
                                     } else {
-                                        echo $this->Form->input('_translations.' . $languageSettings['locale'] . '.title');
-                                        echo $this->Form->input('_translations.' . $languageSettings['locale'] . '.text', ['class' => 'ckeditor']);
+                                        echo $this->Form->input('_translations.' . $languageSettings['locale'] . '.title', ['label' => __d('dejw_cake_media', 'Title')]);
+                                        echo $this->Form->input('_translations.' . $languageSettings['locale'] . '.text', ['class' => 'ckeditor', 'label' => __d('dejw_cake_media', 'Text')]);
                                     }
                                 ?>
                             </div>

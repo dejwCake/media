@@ -25,10 +25,10 @@
                 <?= $this->Form->create($category, ['role' => 'form']) ?>
                 <div class="box-body">
                     <?php
-                        echo $this->Form->input('table_link');
-                        echo $this->Form->input('parent_id', ['options' => $parentCategories, 'empty' => true]);
-                        echo $this->Form->input('view');
-                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('dejw_cake_media', "Select Locale"), 'multiple' => true, 'required' => false]);
+                        echo $this->Form->input('table_link', ['label' => __d('dejw_cake_media', 'Table Link')]);
+                        echo $this->Form->input('parent_id', ['options' => $parentCategories, 'empty' => true, 'label' => __d('dejw_cake_media', 'Parent')]);
+                        echo $this->Form->input('view', ['label' => __d('dejw_cake_media', 'View')]);
+                        echo $this->Form->input('enabled_in_locales', ['options' => $enabledInLocales, 'class' => 'select2', 'data-placeholder' => __d('dejw_cake_media', "Select Locale"), 'multiple' => true, 'required' => false, 'label' => __d('dejw_cake_media', 'Enabled In Locales')]);
                         echo $this->element('DejwCake/Media.file-standard-row', ['collection' => ['title' => 'Image', 'name' => 'image'], 'object' => $category]);
                     ?>
                     <div class="nav-tabs-custom">
@@ -47,9 +47,9 @@
                                  id="tab_<?= $i ?>">
                                 <?php
                                     if($languageSettings['locale'] == $defaultLocale){
-                                        echo $this->Form->input('title');
+                                        echo $this->Form->input('title', ['label' => __d('dejw_cake_media', 'Title')]);
                                     } else {
-                                        echo $this->Form->input('_translations.' . $languageSettings['locale'] . '.title');
+                                        echo $this->Form->input('_translations.' . $languageSettings['locale'] . '.title', ['label' => __d('dejw_cake_media', 'Title')]);
                                     }
                                 ?>
                             </div>
