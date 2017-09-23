@@ -1,10 +1,26 @@
 {
-    "name": "DejwCake/Media",
-    "description": "DejwCake/Media plugin for CakePHP",
+    "name": "dejw-cake/media",
+    "description": "Media plugin for CakePHP",
     "type": "cakephp-plugin",
+    "keywords": [
+        "media",
+        "photos",
+        "gallery",
+        "video"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DejwCake",
+            "email": "github@dejw.sk",
+            "role": "Author"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": ">=3.3.2 <4.0.0"
+        "cakephp/cakephp": ">=3.3.2 <4.0.0",
+        "dejw-cake/adminlte": "dev-master",
+        "dejw-cake/standard-cms": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
